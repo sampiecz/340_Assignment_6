@@ -1,11 +1,11 @@
 /***********************************************************
- CSCI 340 - Assignment 5 - Spring 2018
+ CSCI 340 - Assignment 6 - Spring 2018
  
  Progammer: Sam Piecz
  Z-ID: Z1732715
  Section: 1
  TA: 
- Date Due: March 05, 2018 
+ Date Due: March 22, 2018 
  Purpose: 
  ************************************************************/
 #ifndef ASSIGNMENT5

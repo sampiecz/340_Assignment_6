@@ -20,7 +20,7 @@ assignment6.o: assignment6.cc	assignment6.h
 	g++ $(CCFLAGS) -c assignment6.cc
 
 # Rule to compile source code file to object code
-assignment6main.o: assignment6main.cc
+assignment6main.o: assignment6main.cc assignment5.h assignment6.h
 	g++ $(CCFLAGS) -c assignment6main.cc
 
 # Pseudo-target to remove object code and executable files
