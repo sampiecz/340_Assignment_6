@@ -158,11 +158,11 @@ bool BST::search( Node*& n, int val )
         }
         else if ( n->value > val )
         {
-            search( n->left, val )
+            search( n->left, val );
         }
         else
         {
-            search( n->right, val)
+            search( n->right, val);
         }
     }
     else
@@ -199,38 +199,48 @@ bool BST::remove( Node*& n, int val )
         pred = n->predecessor;
         n->data = pred;
     }
-    // Need to find if n is a leaf still just psuedocode
-    else if( n.isleaf() )
+    else if( n->left == NULL && n->right == NULL )
     {
-        // Call destructor for node
-        // Or delete can't remember which one
-        // just needs to be deleted.
+        // Delete node
         delete n;
-        n = NULL;
     }
     else
     {
-        // n.child is psuedocode 
+        // n->child is psuedocode 
         Node temp = n;
         n = n->child();
         delete temp;
+    }
 }
 
 /***************************************************************
   
- Name: 
+ Name: sumLeftLeaves
 
- Use: 
+ Use: Return the sum of the left leaves based on the passed in
+ node object.
 
- Parameters: 
+ Parameters: A reference to a pointer to a node.
  
- Returns: 
+ Returns: An integer that is the sum of the leaves leaves in 
+ the binary search tree.
 
  ***************************************************************/
 int BST::sumLeftLeaves( Node*& n )
 {
-    if ( n->left != NULL )
+    int sum = 0;
+
+    if ( n != NULL )
     {
-        sumLeftLeaves
+        if ( n->left == NULL && n->right == NULL )
+        {
+            sum += n->left->key;
+        }
+        else
+        {
+            sum += sumLeftLeaves(n->left);
+        }
     }
+
+    return sum;
 }
