@@ -112,47 +112,108 @@ int BST::sumLeftLeaves()
 
 /***************************************************************
   
- Name: 
+ Name: insert 
 
- Use: 
+ Use: Insert a value into the BST. 
 
- Parameters: 
+ Parameters: A reference to a node pointer and an integer value. 
  
- Returns: 
+ Returns: No return. 
 
  ***************************************************************/
-void BST::insert( Node*&, int )
+void BST::insert( Node*& n, int val )
 {
+    if ( n->data != NULL )
+    {
+        n->data = val;
+    }
+    else if ( n->data > val )
+    {
+        insert( n->left, val);
+    }
+    else
+    {
+        insert( n->right, val);
+    }
 }
 
 /***************************************************************
   
- Name: 
+ Name: search 
 
- Use: 
+ Use: Searches the binary tree for the value specified.  
 
- Parameters: 
+ Parameters: A reference to a node pointer and an integer value. 
  
- Returns: 
+ Returns: A bool. 
 
  ***************************************************************/
-bool BST::search( Node*&, int )
+bool BST::search( Node*& n, int val )
 {
+    if ( n->data != NULL ) 
+    {
+        if ( n->data == val )
+        {
+            return true;
+        }
+        else if ( n->value > val )
+        {
+            search( n->left, val )
+        }
+        else
+        {
+            search( n->right, val)
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /***************************************************************
   
- Name: 
+ Name: remove 
 
- Use: 
+ Use: Removes a node from the binary search tree. 
 
- Parameters: 
+ Parameters: A reference to a node point and an integer. 
  
- Returns: 
+ Returns: A bool. 
 
  ***************************************************************/
-bool BST::remove( Node*&, int )
+bool BST::remove( Node*& n, int val )
 {
+    if( n->data == NULL )
+    {
+        exit();
+    }
+    if ( n->data > val )
+    {
+        remove(n->left, val);
+    }
+
+    if( n->left && n->right )
+    {
+        // Need to find precessor still just psuedocode
+        pred = n->predecessor;
+        n->data = pred;
+    }
+    // Need to find if n is a leaf still just psuedocode
+    else if( n.isleaf() )
+    {
+        // Call destructor for node
+        // Or delete can't remember which one
+        // just needs to be deleted.
+        delete n;
+        n = NULL;
+    }
+    else
+    {
+        // n.child is psuedocode 
+        Node temp = n;
+        n = n->child();
+        delete temp;
 }
 
 /***************************************************************
@@ -168,4 +229,8 @@ bool BST::remove( Node*&, int )
  ***************************************************************/
 int BST::sumLeftLeaves( Node*& n )
 {
+    if ( n->left != NULL )
+    {
+        sumLeftLeaves
+    }
 }
