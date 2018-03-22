@@ -13,39 +13,6 @@
 #include "assignment6.h"
 using namespace std;
 
-class BST: public binTree
-{
-    public:
-        BST() : binTree() {}    // constructor
-        void insert( int );     // insert an item in the tree
-        bool search( int );     // search an item in the tree
-        bool remove( int );     // remove an item in the tree
-                                // returns true when successful
-        int sumLeftLeaves();    // return the sum of values
-                                // of left leaves
-    private:
-        void insert( Node*&, int ); // private version of insert(int)
-        bool search( Node*&, int ); // private version of search(int)
-        bool remove( Node*&, int ); // private version of remote(int)
-        int sumLeftLeaves( Node*& n );  // private version sumLeftLeaves
-
-};
-
-/***************************************************************
-  
- Name: BST 
-
- Use: Constructor for BST class. 
-
- Parameters: None. 
- 
- Returns: None. 
-
- ***************************************************************/
-BST::BST()
-{
-}
-
 /***************************************************************
   
  Name: insert
@@ -156,7 +123,7 @@ bool BST::search( Node*& n, int val )
         {
             return true;
         }
-        else if ( n->value > val )
+        else if ( n->data > val )
         {
             search( n->left, val );
         }
@@ -186,16 +153,20 @@ bool BST::remove( Node*& n, int val )
 {
     if( n->data == NULL )
     {
-        exit();
+        exit(1); 
     }
     if ( n->data > val )
     {
         remove(n->left, val);
     }
-
-    if( n->left && n->right )
+    if ( n->data < val )
     {
-        // Need to find precessor still just psuedocode
+        remove(n->right, val);
+    }
+
+    if( n->left != NULL && n->right != NULL )
+    {
+        // need to do 
         pred = n->predecessor;
         n->data = pred;
     }
@@ -206,8 +177,8 @@ bool BST::remove( Node*& n, int val )
     }
     else
     {
-        // n->child is psuedocode 
-        Node temp = n;
+        // need to do
+        Node* temp;
         n = n->child();
         delete temp;
     }
@@ -234,7 +205,7 @@ int BST::sumLeftLeaves( Node*& n )
     {
         if ( n->left == NULL && n->right == NULL )
         {
-            sum += n->left->key;
+            sum += n->left->data;
         }
         else
         {
