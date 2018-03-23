@@ -117,7 +117,7 @@ void BST::insert( Node*& n, int val )
  ***************************************************************/
 bool BST::search( Node*& n, int val )
 {
-    if ( n->data != NULL ) 
+    if ( n != NULL ) 
     {
         if ( n->data == val )
         {
@@ -151,6 +151,8 @@ bool BST::search( Node*& n, int val )
  ***************************************************************/
 bool BST::remove( Node*& n, int val )
 {
+    Node* predecessor = n;
+
     if( n->data == NULL )
     {
         return false; 
@@ -166,39 +168,69 @@ bool BST::remove( Node*& n, int val )
 
     if( n->left != NULL && n->right != NULL )
     {
-        Node* pred = n->left;
+        predecessor = n->left;   
 
-        while( pred->right != NULL)
+        while( predecessor->right != NULL)
         {
-            pred = pred->right;
+            predecessor = predecessor->right;
         }
 
-        n->data = pred->data;
+        n->data = predecessor->data;
 
-        return remove( n->left, pred->data );
+        return remove( n->left, predecessor->data );
+    }
+
+    if( n->right == NULL )
+    {
+        n = n->left;
+    }
+    else if( n->left == NULL )
+    {
+        n = n->right;
+    }
+    else
+    {
+        predecessor = n->left;
+
+        while( predecessor->right != NULL )
+        {
+            predecessor = predecessor->right;
+        }
+
+        predecessor->right = n->right;
+        predecessor = n;
+        n = n->left;
+        delete predecessor;
+
+    }
+
+    return true;
+}
+
+/***************************************************************
+  
+ Name: isLeaf 
+
+ Use: Say if the node is a leaf or not. 
+
+ Parameters: A node.
+ 
+ Returns: A bool. 
+ 
+ ***************************************************************/
+bool isLeaf( Node *n )
+{
+    if ( n == NULL )
+    {
+        return false;
     }
     else if( n->left == NULL && n->right == NULL )
     {
-        // Delete node
-        delete n;
         return true;
     }
     else
     {
-        // need to do
-        Node* temp = n;
-
-        if ( n->left != NULL )
-        {
-            n = n->left;
-        }
-        else
-        {
-            n = n->right;
-        }
-
-        delete temp;
-        return true;
+        return false;
     }
 }
 
@@ -221,7 +253,8 @@ int BST::sumLeftLeaves( Node*& n )
 
     if ( n != NULL )
     {
-        if ( n->left == NULL && n->right == NULL )
+
+        if (isLeaf(n->left))
         {
             sum += n->left->data;
         }
@@ -229,6 +262,8 @@ int BST::sumLeftLeaves( Node*& n )
         {
             sum += sumLeftLeaves(n->left);
         }
+
+        sum += sumLeftLeaves(n->right);
     }
 
     return sum;

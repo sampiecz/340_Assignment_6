@@ -15,6 +15,28 @@
 #include "assignment5.h"
 using namespace std;
 
+
+// Start pre provided stuff
+const int MAX_SIZE = 40;
+const int MAX_COUNT = 40;
+const int WIDTH = 5;
+const int ROW_SIZE = 8;
+
+int mcount = 0;
+int rcount = 0;
+
+void display(int d) {
+    if ( mcount < MAX_COUNT ) {
+        cout << setw(WIDTH) << d;
+        mcount++;
+        rcount++;
+        if ( rcount == ROW_SIZE ) {
+            cout << endl;
+            rcount = 0;
+        }
+    }
+}
+
 /***************************************************************
   
  Name: Node 
@@ -317,26 +339,7 @@ void binTree::postorder( Node* r, void(* p)(int) )
 	}
 }
 
-// Start pre provided stuff
-const int MAX_SIZE = 40;
-const int MAX_COUNT = 40;
-const int WIDTH = 5;
-const int ROW_SIZE = 8;
 
-int mcount = 0;
-int rcount = 0;
-
-void display(int d) {
-    if ( mcount < MAX_COUNT ) {
-        cout << setw(WIDTH) << d;
-        mcount++;
-        rcount++;
-        if ( rcount == ROW_SIZE ) {
-            cout << endl;
-            rcount = 0;
-        }
-    }
-}
 
 // New main method in assignment6main.cc
 // #define BINTREE_MAIN

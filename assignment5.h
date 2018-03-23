@@ -19,6 +19,10 @@ class Node {
     friend class binTree;
     friend class BST;
 
+    public:
+        Node(int& x, Node* l = 0, Node* r = 0)
+        { data = x; left = l; right = r; }
+
     // Method prototypes
     public:
         // Constructor what upppp
