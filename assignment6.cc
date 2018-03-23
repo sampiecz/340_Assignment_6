@@ -26,7 +26,7 @@ using namespace std;
  ***************************************************************/
 void BST::insert( int val)
 {
-    insert(val);
+    insert(root, val);
 }
 
 /***************************************************************
@@ -42,7 +42,7 @@ void BST::insert( int val)
  ***************************************************************/
 bool BST::search( int val)
 {
-    search(val);
+    search(root, val);
 }
 
 /***************************************************************
@@ -58,7 +58,7 @@ bool BST::search( int val)
  ***************************************************************/
 bool BST::remove( int val)
 {
-    remove(val);
+    remove(root, val);
 }
 
 /***************************************************************
@@ -74,7 +74,7 @@ bool BST::remove( int val)
  ***************************************************************/
 int BST::sumLeftLeaves()
 {
-    sumLeftLeaves();
+    sumLeftLeaves(root);
 }
 
 /***************************************************************
@@ -153,22 +153,29 @@ bool BST::remove( Node*& n, int val )
 {
     if( n->data == NULL )
     {
-        exit(1); 
+        return false; 
     }
     if ( n->data > val )
     {
-        remove(n->left, val);
+        return remove(n->left, val);
     }
     if ( n->data < val )
     {
-        remove(n->right, val);
+        return remove(n->right, val);
     }
 
     if( n->left != NULL && n->right != NULL )
     {
-        // need to do 
-        pred = n->predecessor;
-        n->data = pred;
+        Node* pred = n->left;
+
+        while( pred->right != NULL)
+        {
+            pred = pred->right;
+        }
+
+        n->data = pred->data;
+
+        return remove( n->left, pred->data );
     }
     else if( n->left == NULL && n->right == NULL )
     {
@@ -178,8 +185,17 @@ bool BST::remove( Node*& n, int val )
     else
     {
         // need to do
-        Node* temp;
-        n = n->child();
+        Node* temp = n;
+
+        if ( n->left != NULL )
+        {
+            n = n->left;
+        }
+        else
+        {
+            n = n->right;
+        }
+
         delete temp;
     }
 }
