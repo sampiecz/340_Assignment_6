@@ -42,7 +42,7 @@ void BST::insert( int val)
  ***************************************************************/
 bool BST::search( int val)
 {
-    search(root, val);
+    return search(root, val);
 }
 
 /***************************************************************
@@ -58,7 +58,7 @@ bool BST::search( int val)
  ***************************************************************/
 bool BST::remove( int val)
 {
-    remove(root, val);
+    return remove(root, val);
 }
 
 /***************************************************************
@@ -74,7 +74,7 @@ bool BST::remove( int val)
  ***************************************************************/
 int BST::sumLeftLeaves()
 {
-    sumLeftLeaves(root);
+    return sumLeftLeaves(root);
 }
 
 /***************************************************************
@@ -90,9 +90,9 @@ int BST::sumLeftLeaves()
  ***************************************************************/
 void BST::insert( Node*& n, int val )
 {
-    if ( n->data != NULL )
+    if ( n == NULL )
     {
-        n->data = val;
+        n = new Node(val);
     }
     else if ( n->data > val )
     {
@@ -125,11 +125,11 @@ bool BST::search( Node*& n, int val )
         }
         else if ( n->data > val )
         {
-            search( n->left, val );
+            return search( n->left, val );
         }
         else
         {
-            search( n->right, val);
+            return search( n->right, val);
         }
     }
     else
@@ -181,6 +181,7 @@ bool BST::remove( Node*& n, int val )
     {
         // Delete node
         delete n;
+        return true;
     }
     else
     {
@@ -197,6 +198,7 @@ bool BST::remove( Node*& n, int val )
         }
 
         delete temp;
+        return true;
     }
 }
 
